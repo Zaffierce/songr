@@ -1,14 +1,25 @@
 package com.Zaffierce.songr;
 
-public class Album {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class Album {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
     protected String title;
     protected String artist;
     protected int songCount;
     protected int length;
     protected String imageUrl;
 
+    public Album() {}
+
     public Album(String title, String artist, int songCount, int length, String imageUrl) {
+        this.id = id;
         this.title = title;
         this.artist = artist;
         this.songCount = songCount;
@@ -40,4 +51,6 @@ public class Album {
     public String getImageUrl() {
         return this.imageUrl;
     }
+
+    public Long getID() { return this.id; }
 }

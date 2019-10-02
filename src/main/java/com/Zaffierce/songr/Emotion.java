@@ -1,10 +1,23 @@
 package com.Zaffierce.songr;
 
 //Example from Monday's lecture
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Emotion {
-    String emotionName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    public String emotionName;
     int strength;
     String reason;
+
+    public Emotion() {}
 
     public Emotion(String emotionName, int strength, String reason) {
         this.emotionName = emotionName;

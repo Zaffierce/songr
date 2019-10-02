@@ -1,12 +1,18 @@
 package com.Zaffierce.songr;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.List;
 
 @Controller
 public class HomeController {
+    @Autowired
+    AlbumRepository albumRepository;
 
     //The model "m" is for us to specify variables that the view should have access to.
 
@@ -34,27 +40,39 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/emotions")
-    public String getTheEmotions(Model m) {
-        Emotion[] feelings = new Emotion[]{
-                new Emotion("Uncertanity", 8, "Because fuck Bob Dole"),
-                new Emotion("Confusion", 20, "Java hurt James' Brain")
-        };
-        m.addAttribute("feeling", feelings);
+//    @GetMapping("/emotions")
+//    public String getTheEmotions(Model m) {
+//        List<Emotion> feelings = emotionRepository.findAll();
+//        m.addAttribute("feeling", feelings);
+//        return "emotions";
+//    }
 
-        return "emotions";
-    }
+//    @PostMapping("/emotions")
+//    public RedirectView addTheEmotions(String emotionName, String reason, int strength){
+//        Emotion em = new Emotion(emotionName, strength, reason);
+//        emotionRepository.save(em);
+//        return new RedirectView("/emotions");
+//    }
 
     @GetMapping("/albums")
     public String getAlbums(Model m) {
-        Album[] myAlbums = new Album[]{
-                new Album("Jazz", "Queen", 12, 2679, "https://upload.wikimedia.org/wikipedia/en/4/43/Queen_Bicycle_Race1.png"),
-                new Album("A Night at the Opera", "Queen", 13, 2588, "https://upload.wikimedia.org/wikipedia/en/4/4d/Queen_A_Night_At_The_Opera.png"),
-                new Album("Hey Jude", "Beatles", 10, 1944, "https://upload.wikimedia.org/wikipedia/en/0/0a/Heyjudealbum.jpg")
-        };
+        List<Album> myAlbums = albumRepository.findAll();
+//        System.out.println(myAlbums);
         m.addAttribute("albums", myAlbums);
-
         return "albums";
     }
 
+
+    @PostMapping("/albums")
+    public RedirectView addAlbums(String title, String artist, int songCount, int length, String imageUrl) {
+        Album album = new Album(title, artist, songCount, length, imageUrl);
+        albumRepository.save(album);
+        return new RedirectView("/albums");
+    }
+
+//    @DeleteMapping("/albums")
+//    public RedirectView deleteAlbums(String title) {
+////        albumRepository.deleteByTitle(title);
+//        return new RedirectView("/home");
+//    }
 }
