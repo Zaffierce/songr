@@ -11,5 +11,16 @@
     <h3>The potato is <span th:text="${potato}"></span></h3>
     <h3 th:text="${keyword}"></h3>
 
+    <form action="/albums" method="post">
+        <fieldset>
+            Artist/Band Name:  <input type="text" name="artist">
+            Album Title:  <input type="text" name="title">
+            Album Track Count:  <input type="number" name="songCount">
+            Album Length in seconds:  <input type="number" name="length">
+            Album Thumbnail:  <input type="text" name="imageUrl">
+            <input type="submit" value="add-album">
+        </fieldset>
+    </form>
+
 </body>
 </html>
