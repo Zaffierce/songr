@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detailed Album View</title>
+</head>
+<body>
+<div th:replace="fragments/common :: nav"></div>
+<h1>Individual album view</h1>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <ul th:each="song : ${album:songs}">
+                <li th:text="${song.title}"></li>
+                <li th:text="${song.length}"></li>
+                <li th:text="${song.trackNumber}"></li>
+            </ul>
+
+            <form method="post" th:action="${album.id}">
+                <fieldset>
+                    <input type="text" name="songName" placeholder="Enter a Song Name" required>
+                    <input type="number" name="length" placeholder="Enter song length in seconds" required>
+                    <input type="number" name="trackNumber" placeholder="Enter track number" required>
+                    <input type="hidden" name="albumID" th:value="${album.id}">
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

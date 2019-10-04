@@ -7,20 +7,23 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<nav>
-    <a href="/">Home</a>
-    <a href="/albums">Albums</a>
-</nav>
+<div th:replace="fragments/common :: nav"></div>
 <h3>This page contains my albums!</h3>
 <div class="container">
     <div class="row">
         <div class="col">
             <ul th:each="a : ${albums}">
-                <li><img th:src="${a.imageUrl}" /></li>
+                <li><a th:href="'albums/'+${a.id}"><img th:src="${a.imageUrl}" /></a></li>
                 <li th:text="'Artist Name:  '+${a.artist}"></li>
                 <li th:text="'Album Name:  '+${a.title}"></li>
                 <li th:text="'Album Song Count:  '+${a.songCount}"></li>
                 <li th:text="'Album Length:  '+${a.length}+' minutes'"></li>
+                <form action="/albums/delete" method="POST">
+                    <fieldset>
+                        <input type="hidden" name="album" th:value="${a.id}">
+                        <input type="submit" value="delete-album">
+                    </fieldset>
+                </form>
             </ul>
         </div>
     </div>

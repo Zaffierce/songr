@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
+<div th:replace="fragments/common :: nav"></div>
     <h1>Home</h1>
     <h2>Welcome, <span th:text="${username}"></span></h2>
     <h3>The potato is <span th:text="${potato}"></span></h3>
