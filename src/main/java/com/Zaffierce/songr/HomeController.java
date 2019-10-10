@@ -1,7 +1,5 @@
 package com.Zaffierce.songr;
 
-import com.Zaffierce.songr.Emotions.Emotion;
-import com.Zaffierce.songr.Emotions.EmotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,14 +45,12 @@ public class HomeController {
     @PostMapping("/albums/delete")
     public RedirectView deleteAlbums(Long id) {
     albumRepository.deleteById(id);
-        return new RedirectView("/albums");
+    return new RedirectView("/albums");
     }
 
     @GetMapping("/albums/{albumID}")
     public String viewAlbumDetails(Model m, @PathVariable Long albumID) {
-        List<Songs> songs = songRepository.findAll();
         m.addAttribute("album", albumRepository.getOne(albumID));
-        m.addAttribute("songs", songs);
         return "detailed";
     }
 
